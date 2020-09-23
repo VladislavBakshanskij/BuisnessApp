@@ -56,7 +56,7 @@ namespace Lab_1.Views {
                 owner.MiddleName = this.middleNameTextBox.Text.With(x => x.Trim());
                 owner.NumberLicense = this.numberLicenseTextBox.Text.With(x => x.Trim());
 
-                if (ValidOwner(owner)) 
+                if (!ValidOwner(owner)) 
                     return;
 
                 this.owners.AddOwnerRow(owner);
@@ -86,7 +86,7 @@ namespace Lab_1.Views {
         private void ChangeBtn_Click(object sender, EventArgs e) {
             try {
                 Owner owner = owners.FirstOrDefault(x => x.Id == ownerId);
-                if (ValidOwner(owner))
+                if (!ValidOwner(owner))
                     return;
                 owners.AcceptChanges();
                 UpdateDB();

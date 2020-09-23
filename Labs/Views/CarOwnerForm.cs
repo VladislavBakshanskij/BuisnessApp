@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 /*Tables*/
-using OwnerTable = Lab_1.DB_OwnersCarsDataSet.OwnerDataTable;
 using CarTable = Lab_1.DB_OwnersCarsDataSet.CarDataTable;
+using OwnerTable = Lab_1.DB_OwnersCarsDataSet.OwnerDataTable;
 using CarOwnerTable = Lab_1.DB_OwnersCarsDataSet.CarOwnerDataTable;
 
 /*Model*/
@@ -36,14 +36,18 @@ namespace Lab_1.Views {
         }
 
         private void Init() {
-            FillDB();
             this.FillHeaderCellDGV(this.dataGridView1, new string[] { 
                 this.label1.Text,
                 this.label2.Text
             });
-            UpdateDB();
-
             UpdateTables();
+            UpdateDB();
+        }
+
+        private void UpdateAdapters() {
+            this.carTableAdapter.Update(this.dB_OwnersCarsDataSet);
+            this.ownerTableAdapter.Update(this.dB_OwnersCarsDataSet);
+            this.carOwnerTableAdapter.Update(this.dB_OwnersCarsDataSet);
         }
 
         private void UpdateTables() {
@@ -60,7 +64,18 @@ namespace Lab_1.Views {
         }
 
         private void UpdateDB() {
+            UpdateAdapters();
+            this.dB_OwnersCarsDataSet.Clear();
+            FillDB();
+            
+            foreach (Car car in cars) 
+                this.carComboBox.Items.Add(car.Number);
 
+            foreach (Owner owner in owners)
+                this.ownerComboBox.Add(owner.NumberLicense);
+
+            this.carComboBox.SelectedIndex = this.ownerComboBox.SelectedIndex = 0;
+            UpdateTables();
         }
 
         private void Button4_Click(object sender, EventArgs e) => this.Close();
@@ -68,8 +83,8 @@ namespace Lab_1.Views {
         #region
         private void AddBtn_Click(object sender, EventArgs e) {
             try {
-                string filterCar = $"NameModel='{this.carComboBox.With(x => x.SelectedItem)}'";
-                string filterOwner = $"MarkName='{this.ownerComboBox.With(x => x.SelectedItem)}'";
+                string filterCar = $"Number='{this.carComboBox.With(x => x.SelectedItem)}'";
+                string filterOwner = $"NumberLicense='{this.ownerComboBox.With(x => x.SelectedItem)}'";
 
                 Owner owner = owners.With(x => x.Select(filterOwner)).With(x => x.First()) as Owner;
                 Car car = cars.With(x => x.Select(filterCar)).With(x => x.First()) as Car;
@@ -89,8 +104,8 @@ namespace Lab_1.Views {
         private void ChangeBtn_Click(object sender, EventArgs e) {
             if (dataGridView1.SelectedRows.Count != 0) {
                 try {
-                    string filterCar = $"NameModel='{this.carComboBox.With(x => x.SelectedItem)}'";
-                    string filterOwner = $"MarkName='{this.ownerComboBox.With(x => x.SelectedItem)}'";
+                    string filterCar = $"Number='{this.carComboBox.With(x => x.SelectedItem)}'";
+                    string filterOwner = $"NumberLicense='{this.ownerComboBox.With(x => x.SelectedItem)}'";
 
                     Owner owner = owners.With(x => x.Select(filterOwner)).With(x => x.First()) as Owner;
                     Car car = cars.With(x => x.Select(filterCar)).With(x => x.First()) as Car;
@@ -128,7 +143,7 @@ namespace Lab_1.Views {
         }
         #endregion
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e) {
+        private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e) {
             try {
                 carOwnerId = e.RowIndex + 1;
                 CarOwner carOwner = carOwners.FirstOrDefault(x => x.Id == carOwnerId);

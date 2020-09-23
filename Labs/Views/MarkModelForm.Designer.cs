@@ -51,7 +51,7 @@
             this.idDataGridViewTextBoxColumn,
             this.markNameDataGridViewTextBoxColumn});
             this.dataGridView1.DataSource = this.markBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(56, 12);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 118);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(250, 150);
             this.dataGridView1.TabIndex = 0;
@@ -86,7 +86,7 @@
             this.idDataGridViewTextBoxColumn1,
             this.nameModelDataGridViewTextBoxColumn});
             this.dataGridView2.DataSource = this.modelBindingSource;
-            this.dataGridView2.Location = new System.Drawing.Point(312, 12);
+            this.dataGridView2.Location = new System.Drawing.Point(422, 118);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(247, 150);
             this.dataGridView2.TabIndex = 1;
@@ -118,7 +118,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(642, 39);
+            this.button1.Location = new System.Drawing.Point(665, 307);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -130,7 +130,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(752, 245);
+            this.ClientSize = new System.Drawing.Size(752, 330);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.dataGridView1);

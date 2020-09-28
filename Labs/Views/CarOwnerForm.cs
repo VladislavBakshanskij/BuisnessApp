@@ -145,7 +145,9 @@ namespace Lab_1.Views {
 
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e) {
             try {
-                carOwnerId = e.RowIndex + 1;
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                carOwnerId = Convert.ToInt32(row.Cells[0].Value);
+
                 CarOwner carOwner = carOwners.FirstOrDefault(x => x.Id == carOwnerId);
                 Car car = carOwner.GetParentRows(relations["CarCarOwner"]).With(x => x.First()) as Car;
                 Owner owner = carOwner.GetParentRows(relations["OwnerCarOwner"]).With(x => x.First()) as Owner;

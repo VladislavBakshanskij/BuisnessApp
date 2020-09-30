@@ -80,14 +80,15 @@ namespace Lab_1.Views {
             UpdateTables();
             FillCarDB();
             
-            foreach (Mark mark in marks.Rows)
+            foreach (Mark mark in marks)
                 MarkComboBox.Add(mark.MarkName);
 
-            foreach (Model model in models.Rows)
+            foreach (Model model in models)
                 ModelComboBox.Add(model.NameModel);
 
             this.ModelComboBox.SelectedIndex = 0;
             this.MarkComboBox.SelectedIndex = 0;
+            this.numberTextBox.Text = "";
         }
 
         #region Работа с данными
@@ -185,7 +186,7 @@ namespace Lab_1.Views {
         private void CheckBox1_CheckedChanged(object sender, EventArgs e) {
             if (this.markCheckBox.Checked) {
                 string filterMark = $"MarkName='{this.MarkComboBox.SelectedItem}'";
-                Mark mark = this.dB_OwnersCarsDataSet.Mark.Select(filterMark).With(x => x.First()) as Mark;
+                Mark mark = marks.Select(filterMark).With(x => x.First()) as Mark;
                 string filterCar = $"MarkId='{mark.Id}'";
                 this.carBindingSource.Filter = filterCar;
             } else {
@@ -196,7 +197,7 @@ namespace Lab_1.Views {
         private void ModelCheckBox_CheckedChanged(object sender, EventArgs e) {
             if (this.modelCheckBox.Checked) {
                 string filterModel = $"NameModel='{this.ModelComboBox.SelectedItem}'";
-                Model mark = this.dB_OwnersCarsDataSet.Mark.Select(filterModel).With(x => x.First()) as Model;
+                Model mark = models.Select(filterModel).With(x => x.First()) as Model;
                 string filterCar = $"ModelId='{mark.Id}'";
                 this.carBindingSource.Filter = filterCar;
             } else {

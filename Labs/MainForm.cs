@@ -53,5 +53,10 @@ namespace Lab_1 {
             mmf.ShowDialog();
         }
         #endregion
+
+        private void Button1_Click(object sender, EventArgs e) {
+            AlertForm alertForm = new AlertForm();
+            alertForm.ShowDialog();
+        }
     }
 }

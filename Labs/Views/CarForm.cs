@@ -1,4 +1,5 @@
 ﻿using Lab_1.Extension_Methods;
+using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

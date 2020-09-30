@@ -29,6 +29,7 @@
             this.MarkModelBtn = new System.Windows.Forms.Button();
             this.OwnerBtn = new System.Windows.Forms.Button();
             this.ClosedBtn = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AllDataBtn
@@ -83,7 +84,7 @@
             // 
             // ClosedBtn
             // 
-            this.ClosedBtn.Location = new System.Drawing.Point(12, 322);
+            this.ClosedBtn.Location = new System.Drawing.Point(12, 384);
             this.ClosedBtn.Name = "ClosedBtn";
             this.ClosedBtn.Size = new System.Drawing.Size(244, 56);
             this.ClosedBtn.TabIndex = 4;
@@ -91,11 +92,22 @@
             this.ClosedBtn.UseVisualStyleBackColor = true;
             this.ClosedBtn.Click += new System.EventHandler(this.ClosedBtn_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 322);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(244, 56);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Создать объявление";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(268, 384);
+            this.ClientSize = new System.Drawing.Size(268, 444);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.OwnerBtn);
             this.Controls.Add(this.ClosedBtn);
             this.Controls.Add(this.MarkModelBtn);
@@ -117,5 +129,6 @@
         private System.Windows.Forms.Button MarkModelBtn;
         private System.Windows.Forms.Button OwnerBtn;
         private System.Windows.Forms.Button ClosedBtn;
+        private System.Windows.Forms.Button button1;
     }
 }

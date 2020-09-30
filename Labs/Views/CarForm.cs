@@ -179,5 +179,27 @@ namespace Lab_1.Views {
                 MessageBox.Show("Выберите строку для редактирования", "Ошибка");
             }
         }
+
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e) {
+            if (this.markCheckBox.Checked) {
+                string filterMark = $"MarkName='{this.MarkComboBox.SelectedItem}'";
+                Mark mark = this.dB_OwnersCarsDataSet.Mark.Select(filterMark).With(x => x.First()) as Mark;
+                string filterCar = $"MarkId='{mark.Id}'";
+                this.carBindingSource.Filter = filterCar;
+            } else {
+                this.carBindingSource.Filter = "";
+            }
+        }
+
+        private void ModelCheckBox_CheckedChanged(object sender, EventArgs e) {
+            if (this.modelCheckBox.Checked) {
+                string filterModel = $"NameModel='{this.ModelComboBox.SelectedItem}'";
+                Model mark = this.dB_OwnersCarsDataSet.Mark.Select(filterModel).With(x => x.First()) as Model;
+                string filterCar = $"ModelId='{mark.Id}'";
+                this.carBindingSource.Filter = filterCar;
+            } else {
+                this.carBindingSource.Filter = "";
+            }
+        }
     }
 }

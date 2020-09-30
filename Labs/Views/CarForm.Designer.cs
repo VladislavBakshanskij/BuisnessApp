@@ -49,6 +49,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.markCheckBox = new System.Windows.Forms.CheckBox();
+            this.modelCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dB_OwnersCarsDataSet)).BeginInit();
@@ -252,11 +254,33 @@
             this.label4.TabIndex = 12;
             this.label4.Text = "Модель кузова";
             // 
+            // markCheckBox
+            // 
+            this.markCheckBox.AutoSize = true;
+            this.markCheckBox.Location = new System.Drawing.Point(257, 12);
+            this.markCheckBox.Name = "markCheckBox";
+            this.markCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.markCheckBox.TabIndex = 13;
+            this.markCheckBox.UseVisualStyleBackColor = true;
+            this.markCheckBox.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            // 
+            // modelCheckBox
+            // 
+            this.modelCheckBox.AutoSize = true;
+            this.modelCheckBox.Location = new System.Drawing.Point(546, 9);
+            this.modelCheckBox.Name = "modelCheckBox";
+            this.modelCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.modelCheckBox.TabIndex = 14;
+            this.modelCheckBox.UseVisualStyleBackColor = true;
+            this.modelCheckBox.CheckedChanged += new System.EventHandler(this.ModelCheckBox_CheckedChanged);
+            // 
             // CarForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(564, 302);
+            this.Controls.Add(this.modelCheckBox);
+            this.Controls.Add(this.markCheckBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -312,5 +336,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox markCheckBox;
+        private System.Windows.Forms.CheckBox modelCheckBox;
     }
 }

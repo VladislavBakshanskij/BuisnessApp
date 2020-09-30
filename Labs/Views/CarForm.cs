@@ -33,7 +33,6 @@ namespace Lab_1.Views {
 
         private void CarForm_Load(object sender, EventArgs e) => Init();
         private void Button1_Click(object sender, EventArgs e) => this.Close();
-        private void CarFormClosing(object sender, FormClosingEventArgs e) => this.dB_OwnersCarsDataSet.AcceptChanges();
        
         private void Init() {
             this.FillHeaderCellDGV(this.dataGridView1, new string[] {

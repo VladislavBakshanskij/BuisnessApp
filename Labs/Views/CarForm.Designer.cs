@@ -297,7 +297,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "CarForm";
             this.Text = "CarForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CarFormClosing);
             this.Load += new System.EventHandler(this.CarForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).EndInit();

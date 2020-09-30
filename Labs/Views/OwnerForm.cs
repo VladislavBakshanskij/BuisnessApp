@@ -116,7 +116,9 @@ namespace Lab_1.Views {
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e) {
             try {
-                ownerId = e.RowIndex + 1;
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                ownerId = Convert.ToInt32(row.Cells[0].Value);
+                
                 Owner owner = owners.FirstOrDefault(x => x.Id == ownerId);
 
                 this.firstNameTextBox.Text = owner.FirstName;

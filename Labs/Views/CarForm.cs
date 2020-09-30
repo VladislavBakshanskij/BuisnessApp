@@ -166,7 +166,9 @@ namespace Lab_1.Views {
 
         private void DataGridView1_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) {
             try {
-                carId = e.RowIndex + 1;
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                carId = Convert.ToInt32(row.Cells[0].Value);
+
                 Car car = this.cars.Select($"Id='{carId}'").First() as Car;
                 Model model = car.GetParentRows(relations["ModelCar"]).With(x => x.First()) as Model;
                 Mark mark = car.GetParentRows(relations["MarkCar"]).With(x => x.First()) as Mark;

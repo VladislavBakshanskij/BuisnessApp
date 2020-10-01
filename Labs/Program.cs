@@ -13,7 +13,7 @@ namespace Lab_1 {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new AlertForm());
         }
     }
 }

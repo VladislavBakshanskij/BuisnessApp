@@ -13,40 +13,36 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace Lab_1.Views {
     public partial class DataForm : Form {
-        Word.Application application;
-        Word.Document document;
-        string pathToDocDir;
+        private readonly string PathToDocumentDirectory;
+        private Word.Application application;
+        private Word.Document document;
 
         public DataForm() {
             InitializeComponent();
-            pathToDocDir = Directory.GetCurrentDirectory();
+            PathToDocumentDirectory = $@"{Directory.GetCurrentDirectory()}\docs";
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "dB_OwnersCarsDataSet.CarOwner". При необходимости она может быть перемещена или удалена.
             this.carOwnerTableAdapter.Fill(this.dB_OwnersCarsDataSet.CarOwner);
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "dB_OwnersCarsDataSet.Owner". При необходимости она может быть перемещена или удалена.
             this.ownerTableAdapter.Fill(this.dB_OwnersCarsDataSet.Owner);
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "dB_OwnersCarsDataSet.Model". При необходимости она может быть перемещена или удалена.
             this.modelTableAdapter.Fill(this.dB_OwnersCarsDataSet.Model);
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "dB_OwnersCarsDataSet.Mark". При необходимости она может быть перемещена или удалена.
             this.markTableAdapter.Fill(this.dB_OwnersCarsDataSet.Mark);
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "dB_OwnersCarsDataSet.Car". При необходимости она может быть перемещена или удалена.
-            this.carTableAdapter.Fill(this.dB_OwnersCarsDataSet.Car);
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "dB_OwnersCarsDataSet.Car". При необходимости она может быть перемещена или удалена.
             this.carTableAdapter.Fill(this.dB_OwnersCarsDataSet.Car);
         }
 
         #region Работа с файлами
+        private bool ExecuteReplace(Word.Find find) => ExecuteReplace(find, Word.WdReplace.wdReplaceAll);
+
         private void OpenDocument(object path) {
             if (!File.Exists(path.ToString())) {
                 throw new FileNotFoundException();
             }
 
-            application = new Word.Application();
             object newTemplate = false;
             object docType = Word.WdNewDocumentType.wdNewBlankDocument;
             object visible = true;
+
+            application = new Word.Application();
             document = application.Documents.Add(ref path, ref newTemplate, ref docType, ref visible);
         }
 
@@ -65,7 +61,6 @@ namespace Lab_1.Views {
             ExecuteReplace(fnd);
         }
 
-        private bool ExecuteReplace(Word.Find find) => ExecuteReplace(find, Word.WdReplace.wdReplaceAll);
         
         private bool ExecuteReplace(Word.Find find, object replaceOption) {
             object findText = Type.Missing;
@@ -95,6 +90,20 @@ namespace Lab_1.Views {
         }
         #endregion
 
-        private void button1_Click(object sender, EventArgs e) => this.Close();
+        private void Button1_Click(object sender, EventArgs e) => this.Close();
+
+        private void Button2_Click(object sender, EventArgs e) {
+            try {
+                AlertForm alertForm = new AlertForm();
+
+                if (alertForm.ShowDialog() == DialogResult.OK) {
+                    OpenDocument($@"{PathToDocumentDirectory}\продажа.docx");
+
+                } else {
+                    MessageBox.Show("Error!");
+                }
+            } catch (Exception) {
+            }
+        }
     }
 }

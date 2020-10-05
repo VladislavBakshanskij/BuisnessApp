@@ -22,9 +22,17 @@ namespace Lab_1 {
         private void button1_Click(object sender, EventArgs e) => this.Close();
 
         private void AlertForm_Load(object sender, EventArgs e) {
+            this.textBox1.Text = string.Empty;
         }
 
         private void button2_Click(object sender, EventArgs e) {
+            if (this.Description == string.Empty) {
+                MessageBox.Show("Введите описание машины");
+                return;
+            } else if (DateTime.Now < this.dateTimePicker1.Value) {
+                MessageBox.Show("Введите правильную дату");
+                return;
+            }
         }
     }
 }

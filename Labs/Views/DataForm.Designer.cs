@@ -25,46 +25,47 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.markIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.markBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dB_OwnersCarsDataSet = new Lab_1.DB_OwnersCarsDataSet();
+            this.dateRegGAIDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modelIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.modelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.carBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.carTableAdapter = new Lab_1.DB_OwnersCarsDataSetTableAdapters.CarTableAdapter();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.markBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.markTableAdapter = new Lab_1.DB_OwnersCarsDataSetTableAdapters.MarkTableAdapter();
             this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.markNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.markTableAdapter = new Lab_1.DB_OwnersCarsDataSetTableAdapters.MarkTableAdapter();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.modelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.modelTableAdapter = new Lab_1.DB_OwnersCarsDataSetTableAdapters.ModelTableAdapter();
             this.idDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameModelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modelTableAdapter = new Lab_1.DB_OwnersCarsDataSetTableAdapters.ModelTableAdapter();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
-            this.ownerBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.ownerTableAdapter = new Lab_1.DB_OwnersCarsDataSetTableAdapters.OwnerTableAdapter();
             this.idDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.secondNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.middleNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numberLicenseDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ownerBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.ownerTableAdapter = new Lab_1.DB_OwnersCarsDataSetTableAdapters.OwnerTableAdapter();
             this.button1 = new System.Windows.Forms.Button();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.markIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dateRegGAIDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.modelIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
-            this.carOwnerBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.carOwnerTableAdapter = new Lab_1.DB_OwnersCarsDataSetTableAdapters.CarOwnerTableAdapter();
             this.idDataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ownerIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.carIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.carOwnerBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.carOwnerTableAdapter = new Lab_1.DB_OwnersCarsDataSetTableAdapters.CarOwnerTableAdapter();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dB_OwnersCarsDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.modelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.carBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.modelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ownerBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
@@ -87,10 +88,60 @@
             this.dataGridView1.Size = new System.Drawing.Size(545, 150);
             this.dataGridView1.TabIndex = 0;
             // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            // 
+            // numberDataGridViewTextBoxColumn
+            // 
+            this.numberDataGridViewTextBoxColumn.DataPropertyName = "Number";
+            this.numberDataGridViewTextBoxColumn.HeaderText = "Number";
+            this.numberDataGridViewTextBoxColumn.Name = "numberDataGridViewTextBoxColumn";
+            // 
+            // markIdDataGridViewTextBoxColumn
+            // 
+            this.markIdDataGridViewTextBoxColumn.DataPropertyName = "MarkId";
+            this.markIdDataGridViewTextBoxColumn.DataSource = this.markBindingSource;
+            this.markIdDataGridViewTextBoxColumn.DisplayMember = "MarkName";
+            this.markIdDataGridViewTextBoxColumn.HeaderText = "MarkId";
+            this.markIdDataGridViewTextBoxColumn.Name = "markIdDataGridViewTextBoxColumn";
+            this.markIdDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.markIdDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.markIdDataGridViewTextBoxColumn.ValueMember = "Id";
+            // 
+            // markBindingSource
+            // 
+            this.markBindingSource.DataMember = "Mark";
+            this.markBindingSource.DataSource = this.dB_OwnersCarsDataSet;
+            // 
             // dB_OwnersCarsDataSet
             // 
             this.dB_OwnersCarsDataSet.DataSetName = "DB_OwnersCarsDataSet";
             this.dB_OwnersCarsDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // dateRegGAIDataGridViewTextBoxColumn
+            // 
+            this.dateRegGAIDataGridViewTextBoxColumn.DataPropertyName = "DateRegGAI";
+            this.dateRegGAIDataGridViewTextBoxColumn.HeaderText = "DateRegGAI";
+            this.dateRegGAIDataGridViewTextBoxColumn.Name = "dateRegGAIDataGridViewTextBoxColumn";
+            // 
+            // modelIdDataGridViewTextBoxColumn
+            // 
+            this.modelIdDataGridViewTextBoxColumn.DataPropertyName = "ModelId";
+            this.modelIdDataGridViewTextBoxColumn.DataSource = this.modelBindingSource;
+            this.modelIdDataGridViewTextBoxColumn.DisplayMember = "NameModel";
+            this.modelIdDataGridViewTextBoxColumn.HeaderText = "ModelId";
+            this.modelIdDataGridViewTextBoxColumn.Name = "modelIdDataGridViewTextBoxColumn";
+            this.modelIdDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.modelIdDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.modelIdDataGridViewTextBoxColumn.ValueMember = "Id";
+            // 
+            // modelBindingSource
+            // 
+            this.modelBindingSource.DataMember = "Model";
+            this.modelBindingSource.DataSource = this.dB_OwnersCarsDataSet;
             // 
             // carBindingSource
             // 
@@ -114,15 +165,6 @@
             this.dataGridView2.Size = new System.Drawing.Size(244, 150);
             this.dataGridView2.TabIndex = 1;
             // 
-            // markBindingSource
-            // 
-            this.markBindingSource.DataMember = "Mark";
-            this.markBindingSource.DataSource = this.dB_OwnersCarsDataSet;
-            // 
-            // markTableAdapter
-            // 
-            this.markTableAdapter.ClearBeforeFill = true;
-            // 
             // idDataGridViewTextBoxColumn1
             // 
             this.idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
@@ -134,6 +176,10 @@
             this.markNameDataGridViewTextBoxColumn.DataPropertyName = "MarkName";
             this.markNameDataGridViewTextBoxColumn.HeaderText = "MarkName";
             this.markNameDataGridViewTextBoxColumn.Name = "markNameDataGridViewTextBoxColumn";
+            // 
+            // markTableAdapter
+            // 
+            this.markTableAdapter.ClearBeforeFill = true;
             // 
             // dataGridView3
             // 
@@ -148,15 +194,6 @@
             this.dataGridView3.Size = new System.Drawing.Size(244, 150);
             this.dataGridView3.TabIndex = 2;
             // 
-            // modelBindingSource
-            // 
-            this.modelBindingSource.DataMember = "Model";
-            this.modelBindingSource.DataSource = this.dB_OwnersCarsDataSet;
-            // 
-            // modelTableAdapter
-            // 
-            this.modelTableAdapter.ClearBeforeFill = true;
-            // 
             // idDataGridViewTextBoxColumn2
             // 
             this.idDataGridViewTextBoxColumn2.DataPropertyName = "Id";
@@ -168,6 +205,10 @@
             this.nameModelDataGridViewTextBoxColumn.DataPropertyName = "NameModel";
             this.nameModelDataGridViewTextBoxColumn.HeaderText = "NameModel";
             this.nameModelDataGridViewTextBoxColumn.Name = "nameModelDataGridViewTextBoxColumn";
+            // 
+            // modelTableAdapter
+            // 
+            this.modelTableAdapter.ClearBeforeFill = true;
             // 
             // dataGridView4
             // 
@@ -184,15 +225,6 @@
             this.dataGridView4.Name = "dataGridView4";
             this.dataGridView4.Size = new System.Drawing.Size(545, 150);
             this.dataGridView4.TabIndex = 3;
-            // 
-            // ownerBindingSource
-            // 
-            this.ownerBindingSource.DataMember = "Owner";
-            this.ownerBindingSource.DataSource = this.dB_OwnersCarsDataSet;
-            // 
-            // ownerTableAdapter
-            // 
-            this.ownerTableAdapter.ClearBeforeFill = true;
             // 
             // idDataGridViewTextBoxColumn3
             // 
@@ -224,6 +256,15 @@
             this.numberLicenseDataGridViewTextBoxColumn.HeaderText = "NumberLicense";
             this.numberLicenseDataGridViewTextBoxColumn.Name = "numberLicenseDataGridViewTextBoxColumn";
             // 
+            // ownerBindingSource
+            // 
+            this.ownerBindingSource.DataMember = "Owner";
+            this.ownerBindingSource.DataSource = this.dB_OwnersCarsDataSet;
+            // 
+            // ownerTableAdapter
+            // 
+            this.ownerTableAdapter.ClearBeforeFill = true;
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(12, 324);
@@ -232,47 +273,7 @@
             this.button1.TabIndex = 4;
             this.button1.Text = "Закрыть";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            // 
-            // numberDataGridViewTextBoxColumn
-            // 
-            this.numberDataGridViewTextBoxColumn.DataPropertyName = "Number";
-            this.numberDataGridViewTextBoxColumn.HeaderText = "Number";
-            this.numberDataGridViewTextBoxColumn.Name = "numberDataGridViewTextBoxColumn";
-            // 
-            // markIdDataGridViewTextBoxColumn
-            // 
-            this.markIdDataGridViewTextBoxColumn.DataPropertyName = "MarkId";
-            this.markIdDataGridViewTextBoxColumn.DataSource = this.markBindingSource;
-            this.markIdDataGridViewTextBoxColumn.DisplayMember = "MarkName";
-            this.markIdDataGridViewTextBoxColumn.HeaderText = "MarkId";
-            this.markIdDataGridViewTextBoxColumn.Name = "markIdDataGridViewTextBoxColumn";
-            this.markIdDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.markIdDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.markIdDataGridViewTextBoxColumn.ValueMember = "Id";
-            // 
-            // dateRegGAIDataGridViewTextBoxColumn
-            // 
-            this.dateRegGAIDataGridViewTextBoxColumn.DataPropertyName = "DateRegGAI";
-            this.dateRegGAIDataGridViewTextBoxColumn.HeaderText = "DateRegGAI";
-            this.dateRegGAIDataGridViewTextBoxColumn.Name = "dateRegGAIDataGridViewTextBoxColumn";
-            // 
-            // modelIdDataGridViewTextBoxColumn
-            // 
-            this.modelIdDataGridViewTextBoxColumn.DataPropertyName = "ModelId";
-            this.modelIdDataGridViewTextBoxColumn.DataSource = this.modelBindingSource;
-            this.modelIdDataGridViewTextBoxColumn.DisplayMember = "NameModel";
-            this.modelIdDataGridViewTextBoxColumn.HeaderText = "ModelId";
-            this.modelIdDataGridViewTextBoxColumn.Name = "modelIdDataGridViewTextBoxColumn";
-            this.modelIdDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.modelIdDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.modelIdDataGridViewTextBoxColumn.ValueMember = "Id";
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // dataGridView5
             // 
@@ -283,19 +284,10 @@
             this.ownerIdDataGridViewTextBoxColumn,
             this.carIdDataGridViewTextBoxColumn});
             this.dataGridView5.DataSource = this.carOwnerBindingSource;
-            this.dataGridView5.Location = new System.Drawing.Point(218, 322);
+            this.dataGridView5.Location = new System.Drawing.Point(459, 322);
             this.dataGridView5.Name = "dataGridView5";
             this.dataGridView5.Size = new System.Drawing.Size(348, 74);
             this.dataGridView5.TabIndex = 5;
-            // 
-            // carOwnerBindingSource
-            // 
-            this.carOwnerBindingSource.DataMember = "CarOwner";
-            this.carOwnerBindingSource.DataSource = this.dB_OwnersCarsDataSet;
-            // 
-            // carOwnerTableAdapter
-            // 
-            this.carOwnerTableAdapter.ClearBeforeFill = true;
             // 
             // idDataGridViewTextBoxColumn4
             // 
@@ -325,27 +317,47 @@
             this.carIdDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.carIdDataGridViewTextBoxColumn.ValueMember = "Id";
             // 
-            // Form1
+            // carOwnerBindingSource
+            // 
+            this.carOwnerBindingSource.DataMember = "CarOwner";
+            this.carOwnerBindingSource.DataSource = this.dB_OwnersCarsDataSet;
+            // 
+            // carOwnerTableAdapter
+            // 
+            this.carOwnerTableAdapter.ClearBeforeFill = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(176, 324);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(171, 72);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "Продажа";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            // 
+            // DataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(844, 450);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView5);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView4);
             this.Controls.Add(this.dataGridView3);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.dataGridView1);
-            this.Name = "Form1";
+            this.Name = "DataForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dB_OwnersCarsDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.modelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.carBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.modelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ownerBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
@@ -390,6 +402,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewComboBoxColumn ownerIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn carIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button button2;
     }
 }
 

@@ -11,15 +11,18 @@ using System.Windows.Forms;
 
 using Word = Microsoft.Office.Interop.Word;
 
+using Mark = Lab_1.DB_OwnersCarsDataSet.MarkRow;
+
 namespace Lab_1.Views {
     public partial class DataForm : Form {
         private readonly string PathToDocumentDirectory;
         private Word.Application application;
         private Word.Document document;
+        private int markId = int.MinValue;
 
         public DataForm() {
             InitializeComponent();
-            PathToDocumentDirectory = $@"{Directory.GetCurrentDirectory()}\docs";
+            PathToDocumentDirectory = $@"{Application.StartupPath}\docs";
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -94,14 +97,36 @@ namespace Lab_1.Views {
 
         private void Button2_Click(object sender, EventArgs e) {
             try {
+                if (this.markId == int.MinValue) {
+                    MessageBox.Show("Выбирите марку");
+                    return;
+                }
+
                 AlertForm alertForm = new AlertForm();
 
                 if (alertForm.ShowDialog() == DialogResult.OK) {
                     OpenDocument($@"{PathToDocumentDirectory}\продажа.docx");
 
+                    Mark mark = dB_OwnersCarsDataSet.Mark.FindById(markId);
+                    
+                    ReplaceText("<FIO>", alertForm.FullName);
+                    ReplaceText("<Description>", alertForm.Description);
+                    ReplaceText("<DateCreation>", alertForm.DateCreation);
+                    ReplaceText("<MarkName>", mark.MarkName);
+                    ReplaceText("<StateAccurary>", alertForm.StateAccurary);
+
+                    application.Visible = true;
                 } else {
                     MessageBox.Show("Error!");
                 }
+            } catch (Exception) {
+            }
+        }
+
+        private void markDGV_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) {
+            try {
+                DataGridViewRow row = markDGV.Rows[e.RowIndex];
+                markId = Convert.ToInt32(row.Cells[0].Value);
             } catch (Exception) {
             }
         }

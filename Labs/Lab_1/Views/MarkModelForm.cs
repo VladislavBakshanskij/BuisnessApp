@@ -1,12 +1,7 @@
 ﻿using Lab_1.Extension_Methods;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 /*Tables*/
@@ -19,12 +14,12 @@ using Mark = Lab_1.DB_OwnersCarsDataSet.MarkRow;
 
 namespace Lab_1.Views {
     public partial class MarkModelForm : System.Windows.Forms.Form {
-        private int modelId;
-        private int markId;
-        private MarkTable marks;
-        private ModelTable models;
-        private DataRelationCollection relations;
-
+        private int _modelId;
+        private int _markId;
+        private MarkTable _marks;
+        private ModelTable _models;
+        private DataRelationCollection _relations;
+        
         public MarkModelForm() {
             InitializeComponent();
         }
@@ -55,15 +50,15 @@ namespace Lab_1.Views {
             this.FillHeaderCellDGV(this.dataGridView1, new string[] { this.label1.Text });
             this.FillHeaderCellDGV(this.dataGridView2, new string[] { this.label2.Text });
 
-            modelId = 0;
-            markId = 0;
+            _modelId = 0;
+            _markId = 0;
             UpdateTables();
-            relations = dB_OwnersCarsDataSet.Relations;
+            _relations = dB_OwnersCarsDataSet.Relations;
         }
 
         private void UpdateTables() {
-            models = dB_OwnersCarsDataSet.Model;
-            marks = dB_OwnersCarsDataSet.Mark;
+            _models = dB_OwnersCarsDataSet.Model;
+            _marks = dB_OwnersCarsDataSet.Mark;
         }
 
         private void Button1_Click(object sender, EventArgs e) => this.Close();
@@ -78,10 +73,10 @@ namespace Lab_1.Views {
                     return;
                 }
 
-                Mark mark = marks.NewMarkRow();
+                Mark mark = _marks.NewMarkRow();
                 mark.MarkName = name;
 
-                marks.AddMarkRow(mark);
+                _marks.AddMarkRow(mark);
                 UpdateDB();
             } catch(Exception) {  
             }
@@ -96,7 +91,7 @@ namespace Lab_1.Views {
                     return;
                 }
 
-                Mark mark = marks.FirstOrDefault(x => x.Id == markId);
+                Mark mark = _marks.FirstOrDefault(x => x.Id == _markId);
                 mark.MarkName = name;
 
                 UpdateDB();
@@ -111,7 +106,7 @@ namespace Lab_1.Views {
 
                 if (response == DialogResult.Yes) {
                     try {
-                        Mark mark = marks.FirstOrDefault(x => x.Id == markId);
+                        Mark mark = _marks.FirstOrDefault(x => x.Id == _markId);
                         mark.Delete();
                     } catch (Exception) {
                     }
@@ -126,9 +121,9 @@ namespace Lab_1.Views {
         private void DataGridView1_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) {
             try {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
-                markId = Convert.ToInt32(row.Cells[0].Value);
+                _markId = Convert.ToInt32(row.Cells[0].Value);
 
-                Mark mark = marks.FirstOrDefault(x => x.Id == markId);
+                Mark mark = _marks.FirstOrDefault(x => x.Id == _markId);
 
                 this.markTextBox.Text = mark.MarkName;
             } catch (Exception) {
@@ -146,10 +141,10 @@ namespace Lab_1.Views {
                     return;
                 }
 
-                Model model = models.NewModelRow();
+                Model model = _models.NewModelRow();
                 model.NameModel = name;
 
-                models.AddModelRow(model);
+                _models.AddModelRow(model);
                 
                 UpdateDB();
             } catch (Exception) { 
@@ -165,7 +160,7 @@ namespace Lab_1.Views {
                     return;
                 }
 
-                Model model = models.FirstOrDefault(x => x.Id == modelId);
+                Model model = _models.FirstOrDefault(x => x.Id == _modelId);
                 model.NameModel = name;
 
                 UpdateDB();
@@ -180,7 +175,7 @@ namespace Lab_1.Views {
 
                 if (response == DialogResult.Yes) {
                     try {
-                        Model model = models.FirstOrDefault(x => x.Id == modelId);
+                        Model model = _models.FirstOrDefault(x => x.Id == _modelId);
                         model.Delete();
                     } catch (Exception) {
                     }
@@ -195,9 +190,9 @@ namespace Lab_1.Views {
         private void DataGridView2_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) {
             try {
                 DataGridViewRow row = dataGridView2.Rows[e.RowIndex];
-                modelId = Convert.ToInt32(row.Cells[0].Value);
+                _modelId = Convert.ToInt32(row.Cells[0].Value);
 
-                Model model = models.FirstOrDefault(x => x.Id == modelId);
+                Model model = _models.FirstOrDefault(x => x.Id == _modelId);
 
                 this.modelTextBox.Text = model.NameModel;
             } catch (Exception) {
@@ -205,5 +200,14 @@ namespace Lab_1.Views {
         }
         #endregion
 
+        #region Import data from excel
+        private void button2_Click(object sender, EventArgs e) {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e) {
+
+        }
+        #endregion
     }
 }

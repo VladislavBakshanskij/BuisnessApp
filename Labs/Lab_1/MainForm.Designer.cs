@@ -34,6 +34,7 @@
             // 
             // AllDataBtn
             // 
+            this.AllDataBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.AllDataBtn.Location = new System.Drawing.Point(12, 12);
             this.AllDataBtn.Name = "AllDataBtn";
             this.AllDataBtn.Size = new System.Drawing.Size(244, 56);
@@ -44,6 +45,7 @@
             // 
             // CarBtn
             // 
+            this.CarBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CarBtn.Location = new System.Drawing.Point(12, 74);
             this.CarBtn.Name = "CarBtn";
             this.CarBtn.Size = new System.Drawing.Size(244, 56);
@@ -54,6 +56,7 @@
             // 
             // CarOwnerBtn
             // 
+            this.CarOwnerBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CarOwnerBtn.Location = new System.Drawing.Point(12, 136);
             this.CarOwnerBtn.Name = "CarOwnerBtn";
             this.CarOwnerBtn.Size = new System.Drawing.Size(244, 56);
@@ -64,6 +67,7 @@
             // 
             // MarkModelBtn
             // 
+            this.MarkModelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MarkModelBtn.Location = new System.Drawing.Point(12, 198);
             this.MarkModelBtn.Name = "MarkModelBtn";
             this.MarkModelBtn.Size = new System.Drawing.Size(244, 56);
@@ -74,6 +78,7 @@
             // 
             // OwnerBtn
             // 
+            this.OwnerBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.OwnerBtn.Location = new System.Drawing.Point(12, 260);
             this.OwnerBtn.Name = "OwnerBtn";
             this.OwnerBtn.Size = new System.Drawing.Size(244, 56);
@@ -84,6 +89,7 @@
             // 
             // ClosedBtn
             // 
+            this.ClosedBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ClosedBtn.Location = new System.Drawing.Point(12, 384);
             this.ClosedBtn.Name = "ClosedBtn";
             this.ClosedBtn.Size = new System.Drawing.Size(244, 56);
@@ -94,6 +100,7 @@
             // 
             // button1
             // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button1.Location = new System.Drawing.Point(12, 322);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(244, 56);

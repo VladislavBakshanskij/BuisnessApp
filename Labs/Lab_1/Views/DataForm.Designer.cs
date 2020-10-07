@@ -59,6 +59,8 @@
             this.carOwnerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.carOwnerTableAdapter = new Lab_1.DB_OwnersCarsDataSetTableAdapters.CarOwnerTableAdapter();
             this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.carDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dB_OwnersCarsDataSet)).BeginInit();
@@ -164,7 +166,7 @@
             this.markDGV.Name = "markDGV";
             this.markDGV.Size = new System.Drawing.Size(244, 150);
             this.markDGV.TabIndex = 1;
-            this.markDGV.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.markDGV_RowHeaderMouseClick);
+            this.markDGV.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.MarkDGV_RowHeaderMouseClick);
             // 
             // idDataGridViewTextBoxColumn1
             // 
@@ -268,9 +270,10 @@
             // 
             // button1
             // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button1.Location = new System.Drawing.Point(12, 324);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(158, 72);
+            this.button1.Size = new System.Drawing.Size(87, 72);
             this.button1.TabIndex = 4;
             this.button1.Text = "Закрыть";
             this.button1.UseVisualStyleBackColor = true;
@@ -329,19 +332,37 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(176, 324);
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.Location = new System.Drawing.Point(102, 324);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(171, 72);
+            this.button2.Size = new System.Drawing.Size(100, 72);
             this.button2.TabIndex = 6;
             this.button2.Text = "Продажа";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button3.Location = new System.Drawing.Point(208, 324);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(100, 72);
+            this.button3.TabIndex = 7;
+            this.button3.Text = "В excel";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "Excel Sheet(*.xlsx)|*.xlsx";
+            // 
             // DataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(844, 450);
+            this.ClientSize = new System.Drawing.Size(815, 404);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.carOwnerDGV);
             this.Controls.Add(this.button1);
@@ -404,6 +425,8 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn ownerIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn carIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

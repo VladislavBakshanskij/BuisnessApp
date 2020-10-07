@@ -88,6 +88,12 @@ namespace Lab_1.Views {
                 Owner owner = owners.FirstOrDefault(x => x.Id == ownerId);
                 if (!ValidOwner(owner))
                     return;
+
+                owner.FirstName = firstNameTextBox.Text;
+                owner.SecondName = lastNameTextBox.Text;
+                owner.MiddleName = middleNameTextBox.Text;
+                owner.NumberLicense = numberLicenseTextBox.Text;
+
                 owners.AcceptChanges();
                 UpdateDB();
             } catch (Exception) { 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lab_1.Extension_Methods;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,7 +21,7 @@ using Model = Lab_1.DB_OwnersCarsDataSet.ModelRow;
 using CarOwner = Lab_1.DB_OwnersCarsDataSet.CarOwnerRow;
 
 namespace Lab_1.Views {
-    public partial class DataForm : Form {
+    public partial class DataForm : System.Windows.Forms.Form {
         private readonly string PathToDocumentDirectory;
         private readonly string PathToExcelDirectory;
 
@@ -113,19 +114,6 @@ namespace Lab_1.Views {
         #endregion
 
         #region Работа с excel
-        private void OpenExcelDocument(string path) {
-            if (!File.Exists(path)) {
-                MessageBox.Show("Файл не найден");
-                return;
-            }
-            
-            excelApplication = new Excel.Application();
-            excelApplication.Workbooks.Add(path);
-            WorkBook = excelApplication.Workbooks[1];
-            ExcelSheets = WorkBook.Worksheets;
-            WorkSheet = (Excel.Worksheet)ExcelSheets[1];
-        }
-
         private void PutCell(string cell, string val) {
             range = WorkSheet.Range[cell, Type.Missing];
             range.Value2 = val;
@@ -187,7 +175,14 @@ namespace Lab_1.Views {
         private string FIO(Owner owner) => $"{owner.FirstName} {owner.SecondName} {owner.MiddleName}";
 
         private void Button3_Click(object sender, EventArgs e) {
-            OpenExcelDocument($@"{PathToExcelDirectory}\spisokCar.xlsx");
+            this.OpenExcelDocument(
+                $@"{PathToExcelDirectory}\spisokCar.xlsx",
+                out excelApplication,
+                out WorkBook,
+                out ExcelSheets,
+                out WorkSheet
+            );
+
             PutCell("F1", DateTime.Now.ToShortDateString());
 
             for (int i = 0; i < dB_OwnersCarsDataSet.Car.Count; i++) {
@@ -206,7 +201,14 @@ namespace Lab_1.Views {
             
             excelApplication.Visible = true;
 
-            OpenExcelDocument($@"{PathToExcelDirectory}\spisokCarOwner.xlsx");
+            this.OpenExcelDocument(
+                $@"{PathToExcelDirectory}\spisokCarOwner.xlsx",
+                out excelApplication,
+                out WorkBook,
+                out ExcelSheets,
+                out WorkSheet
+            );
+
             PutCell("D1", DateTime.Now.ToShortDateString());
             int numCell = 6;
 

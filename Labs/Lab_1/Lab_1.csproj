@@ -128,6 +128,7 @@
     <EmbeddedResource Include="Views\OwnerForm.resx">
       <DependentUpon>OwnerForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include=".editorconfig" />
     <None Include="DB_OwnersCarsDataSet.xsc">
       <DependentUpon>DB_OwnersCarsDataSet.xsd</DependentUpon>
     </None>

@@ -51,6 +51,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.markCheckBox = new System.Windows.Forms.CheckBox();
             this.modelCheckBox = new System.Windows.Forms.CheckBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dB_OwnersCarsDataSet)).BeginInit();
@@ -274,11 +276,26 @@
             this.modelCheckBox.UseVisualStyleBackColor = true;
             this.modelCheckBox.CheckedChanged += new System.EventHandler(this.ModelCheckBox_CheckedChanged);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(255, 250);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(112, 47);
+            this.button2.TabIndex = 15;
+            this.button2.Text = "Импортировать";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // CarForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(564, 302);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.modelCheckBox);
             this.Controls.Add(this.markCheckBox);
             this.Controls.Add(this.label4);
@@ -337,5 +354,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox markCheckBox;
         private System.Windows.Forms.CheckBox modelCheckBox;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

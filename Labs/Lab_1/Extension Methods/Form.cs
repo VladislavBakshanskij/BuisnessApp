@@ -20,23 +20,18 @@ namespace Lab_1.Extension_Methods {
                 dgv.Columns[i + 1].HeaderText = values[i];
         }
 
-        public static void OpenExcelDocument(
-            this System.Windows.Forms.Form self, 
-            string path, 
-            out Excel.Application application,
-            out Excel.Workbook workBook,
-            out Excel.Sheets excelSheets,
-            out Excel.Worksheet workSheet
-        ) {
+        public static (Excel.Application, Excel.Worksheet) OpenExcelDocument(this System.Windows.Forms.Form self, string path) {
             if (!File.Exists(path)) {
                 throw new FileNotFoundException();
             }
 
-            application = new Excel.Application();
+            Excel.Application application = new Excel.Application();
             application.Workbooks.Add(path);
-            workBook = application.Workbooks[1];
-            excelSheets = workBook.Worksheets;
-            workSheet = (Excel.Worksheet)excelSheets[1];
+            Excel.Workbook workBook = application.Workbooks[1];
+            Excel.Sheets excelSheets = workBook.Worksheets;
+            Excel.Worksheet workSheet = (Excel.Worksheet)excelSheets[1];
+
+            return (application, workSheet);
         }
     }
 }

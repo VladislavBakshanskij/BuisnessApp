@@ -1,8 +1,13 @@
 ﻿using Lab_1.Extension_Methods;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
+
+using Excel = Microsoft.Office.Interop.Excel;
 
 /*Tables*/
 using ModelTable = Lab_1.DB_OwnersCarsDataSet.ModelDataTable;
@@ -18,8 +23,11 @@ namespace Lab_1.Views {
         private int _markId;
         private MarkTable _marks;
         private ModelTable _models;
-        private DataRelationCollection _relations;
-        
+
+        private Excel.Application _excelApplication;
+        private Excel.Worksheet _workSheet;
+        private Excel.Range _range;
+
         public MarkModelForm() {
             InitializeComponent();
         }
@@ -47,13 +55,12 @@ namespace Lab_1.Views {
         }
 
         private void Init() {
-            this.FillHeaderCellDGV(this.dataGridView1, new string[] { this.label1.Text });
-            this.FillHeaderCellDGV(this.dataGridView2, new string[] { this.label2.Text });
+            this.FillHeaderCellDGV(this.dataGridView1, this.label1.Text);
+            this.FillHeaderCellDGV(this.dataGridView2, this.label2.Text);
 
             _modelId = 0;
             _markId = 0;
             UpdateTables();
-            _relations = dB_OwnersCarsDataSet.Relations;
         }
 
         private void UpdateTables() {
@@ -201,12 +208,86 @@ namespace Lab_1.Views {
         #endregion
 
         #region Import data from excel
-        private void button2_Click(object sender, EventArgs e) {
 
+        private void Open(string path) => (_excelApplication, _workSheet) = this.OpenExcelDocument(path);
+
+        private void button2_Click(object sender, EventArgs e) {
+            if (openFileDialog1.ShowDialog() != DialogResult.OK) {
+                return;
+            }
+
+            string path = openFileDialog1.FileName;
+
+            if (!File.Exists(path)) {
+                MessageBox.Show("Файл не найден");
+                return;
+            }
+
+            Open(path);
+            
+            /*Super logic working with Excel file!! :)*/
+            Excel.Workbook workbook = _excelApplication.Workbooks.Open(path);
+            _workSheet = workbook.Sheets[1];
+            Excel.Range cells = _workSheet.UsedRange;
+            int i; // count rows
+
+            for (i = 3; i <= cells.Count; i++) {
+                string value = cells[i, 2].Text.ToString();
+
+                if (string.IsNullOrEmpty(value?.Trim())) {
+                    continue;
+                } 
+
+                Mark mark = _marks.FirstOrDefault(x => x.MarkName == value);
+
+                if (mark != null) {
+                    continue;
+                }
+
+                mark = _marks.NewMarkRow();
+                mark.MarkName = value;
+                mark.Id = Convert.ToInt32(cells[i, 1].Text);
+                _marks.AddMarkRow(mark);
+            }
         }
 
         private void button3_Click(object sender, EventArgs e) {
+            if (openFileDialog1.ShowDialog() != DialogResult.OK) {
+                return;
+            }
 
+            string path = openFileDialog1.FileName;
+
+            if (!File.Exists(path)) {
+                MessageBox.Show("Файл не был найден!");
+                return;
+            }
+
+            Open(path);
+
+            Excel.Workbook workbook = _excelApplication.Workbooks.Open(path);
+            _workSheet = workbook.Sheets[1];
+            Excel.Range cells = _workSheet.UsedRange;
+            int i; // count rows
+
+            for (i = 3; i <= cells.Count; i++) {
+                string value = cells[i, 2].Text.ToString();
+
+                if (string.IsNullOrEmpty(value?.Trim())) {
+                    continue;
+                }
+
+                Model model = _models.FirstOrDefault(x => x.NameModel == value);
+
+                if (model != null) {
+                    continue;
+                }
+
+                model = _models.NewModelRow();
+                model.NameModel = value;
+                model.Id = Convert.ToInt32(cells[i, 1].Text);
+                _models.AddModelRow(model);
+            }
         }
         #endregion
     }

@@ -1,6 +1,7 @@
 ﻿using Lab_1.Extension_Methods;
 using System;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -192,6 +193,41 @@ namespace Lab_1.Views {
             } else {
                 carBindingSource.Filter = "";
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e) {
+            if (openFileDialog1.ShowDialog() != DialogResult.OK) {
+                return;
+            }
+
+            string path = openFileDialog1.FileName;
+
+            if (!File.Exists(path)) {
+                MessageBox.Show("Файл не найден!!");
+                return;
+            }
+
+            int i;
+
+            for (i = 3;; i++) {
+                string value = null;
+
+                if (string.IsNullOrEmpty(value?.Trim())) {
+                    break;
+                }
+
+                Car car = _cars.FirstOrDefault(x => x.Number == value);
+
+                if (car != null) {
+                    break;
+                }
+
+                car = _cars.NewCarRow();
+                car.Number = value;
+                _cars.AddCarRow(car);
+            }
+
+            UpdateCarsDB();
         }
     }
 }

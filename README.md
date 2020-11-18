@@ -5,10 +5,10 @@
 
 > 3 - `Done`
 
-> 4 - `In progress`
+> 4 - `Done`
 
-> 5 - ``
+> 5 - `Done`
 
 > 6 - `done`
 
-> 7 - ``
+> 7 - `In progress`

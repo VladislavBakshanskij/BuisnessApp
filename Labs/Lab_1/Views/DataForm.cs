@@ -1,14 +1,8 @@
 ﻿using Lab_1.Extension_Methods;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Word = Microsoft.Office.Interop.Word;
@@ -111,30 +105,6 @@ namespace Lab_1.Views {
                 ref matchDiacritics, ref matchAlefHamza, ref matchControl
             );
         }
-        #endregion
-
-        #region Работа с excel
-        private void PutCell(string cell, string val) {
-            _range = _workSheet.Range[cell, Type.Missing];
-            _range.Value2 = val;
-        }
-
-        private void PutCellBorder(string cell, string val) {
-            PutCell(cell, val);
-            _range.Interior.Color = ColorTranslator.ToOle(_color);
-            _range.Columns.AutoFit();
-            _range.BorderAround(
-                Excel.XlLineStyle.xlContinuous, 
-                Excel.XlBorderWeight.xlThin,
-                Excel.XlColorIndex.xlColorIndexAutomatic, 
-                Type.Missing
-            );
-        }
-        #endregion
-
-        #endregion
-
-        private void Button1_Click(object sender, EventArgs e) => this.Close();
 
         private void Button2_Click(object sender, EventArgs e) {
             try {
@@ -149,7 +119,7 @@ namespace Lab_1.Views {
                     OpenDocument($@"{_pathToDocumentDirectory}\продажа.docx");
 
                     Mark mark = dB_OwnersCarsDataSet.Mark.FindById(_markId);
-                    
+
                     ReplaceText("<FIO>", alertForm.FullName);
                     ReplaceText("<Description>", alertForm.Description);
                     ReplaceText("<DateCreation>", alertForm.DateCreation);
@@ -164,102 +134,14 @@ namespace Lab_1.Views {
             }
         }
 
-        private void MarkDGV_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) {
-            try {
-                DataGridViewRow row = markDGV.Rows[e.RowIndex];
-                _markId = Convert.ToInt32(row.Cells[0].Value);
-            } catch (Exception) {
-            }
-        }
-
-        private string FIO(Owner owner) => $"{owner.FirstName} {owner.SecondName} {owner.MiddleName}";
-
-        private void Button3_Click(object sender, EventArgs e) {
-            (_excelApplication, _workSheet) = this.OpenExcelDocument($@"{_pathToExcelDirectory}\spisokCar.xlsx");
-
-            PutCell("F1", DateTime.Now.ToShortDateString());
-
-            for (int i = 0; i < dB_OwnersCarsDataSet.Car.Count; i++) {
-                string number = (i + 6).ToString();
-
-                Car car = dB_OwnersCarsDataSet.Car[i];
-                Model model = dB_OwnersCarsDataSet.Model.FirstOrDefault(x => x.Id == car.ModelId);
-                Mark mark = dB_OwnersCarsDataSet.Mark.FirstOrDefault(x => x.Id == car.MarkId);
-
-                PutCellBorder($"A{number}", car.Id.ToString());
-                PutCellBorder($"B{number}", car.Number.ToString());
-                PutCellBorder($"C{number}", car.DateRegGAI.ToString());
-                PutCellBorder($"D{number}", model.NameModel);
-                PutCellBorder($"E{number}", mark.MarkName);
-            }
-            
-            _excelApplication.Visible = true;
-
-            (_excelApplication, _workSheet) = this.OpenExcelDocument($@"{_pathToExcelDirectory}\spisokCarOwner.xlsx");
-
-            PutCell("D1", DateTime.Now.ToShortDateString());
-            int numCell = 6;
-
-            foreach (Owner owner in dB_OwnersCarsDataSet.Owner) {
-                CarOwner[] carOwners = owner.GetChildRows("OwnerCarOwner") as CarOwner[];
-
-                PutCell($"A{numCell}", FIO(owner));
-
-                _range = _workSheet.get_Range($"A{numCell}", $"D{numCell}");
-                _range.Merge(Type.Missing);
-                _range.Font.Bold = true;
-                _range.Font.Italic = true;
-                _range.Interior.ColorIndex = 34;
-
-                _range.BorderAround(
-                    Excel.XlLineStyle.xlContinuous, 
-                    Excel.XlBorderWeight.xlThin, 
-                    Excel.XlColorIndex.xlColorIndexAutomatic, 
-                    Type.Missing
-                );
-                
-                _range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-
-                foreach (CarOwner carOwner in carOwners) {
-                    Car car = dB_OwnersCarsDataSet.Car.FirstOrDefault(x => x.Id == carOwner.CarId);
-                    Mark mark = dB_OwnersCarsDataSet.Mark.FirstOrDefault(x => x.Id == car.MarkId);
-
-                    PutCellBorder($"A{numCell + 1}", car.Id.ToString());
-                    PutCellBorder($"B{numCell + 1}", FIO(owner));
-                    PutCellBorder($"C{numCell + 1}", car.Number);
-                    PutCellBorder($"D{numCell + 1}", mark.MarkName);
-
-                    numCell++;
-                }
-                numCell++;
-
-                PutCell($"A{numCell}", $"Итого: {carOwners.Length}");
-
-                _range = _workSheet.get_Range($"A{numCell}", $"D{numCell}");
-                _range.Merge(Type.Missing);
-                _range.Font.Italic = true;
-                _range.Interior.ColorIndex = 40;
-
-                _range.BorderAround(
-                    Excel.XlLineStyle.xlContinuous, 
-                    Excel.XlBorderWeight.xlThin, 
-                    Excel.XlColorIndex.xlColorIndexAutomatic, 
-                    Type.Missing
-                );
-
-                numCell++;
-            }
-
-            _excelApplication.Visible = true;
-        }
 
         private void button4_Click(object sender, EventArgs e) {
             OpenDocument($@"{_pathToDocumentDirectory}\список авто.docx");
             ReplaceText("<Today>", DateTime.Today.ToShortDateString());
-            
+
             object start = 0;
             object end = _wordDocument.Characters.Count;
-            
+
             Word.Range rng = _wordDocument.Range(ref
                 start, ref end);
             rng.TextRetrievalMode.IncludeHiddenText = false;
@@ -277,7 +159,7 @@ namespace Lab_1.Views {
 
                 object defaultTableBehavior = Type.Missing;
                 object autoFitBehavior = Type.Missing;
-                
+
                 Word.Table tbl = rng.Tables.Add(rng, 1, 4, ref defaultTableBehavior, ref autoFitBehavior);
                 object style = "Сетка таблицы";
 
@@ -318,12 +200,114 @@ namespace Lab_1.Views {
             } else {
                 ReplaceText("Table", "");
             }
-            
+
             _wordApplication.Visible = true;
         }
+        #endregion
+
+        #region Работа с excel
+        private void PutCell(string cell, string val) {
+            _range = _workSheet.Range[cell, Type.Missing];
+            _range.Value2 = val;
+        }
+
+        private void PutCellBorder(string cell, string val) {
+            PutCell(cell, val);
+            _range.Interior.Color = ColorTranslator.ToOle(_color);
+            _range.Columns.AutoFit();
+            _range.BorderAround(
+                Excel.XlLineStyle.xlContinuous, 
+                Excel.XlBorderWeight.xlThin,
+                Excel.XlColorIndex.xlColorIndexAutomatic, 
+                Type.Missing
+            );
+        }
+
+        private void Button3_Click(object sender, EventArgs e) {
+            (_excelApplication, _workSheet) = this.OpenExcelDocument($@"{_pathToExcelDirectory}\spisokCar.xlsx");
+
+            PutCell("F1", DateTime.Now.ToShortDateString());
+
+            for (int i = 0; i < dB_OwnersCarsDataSet.Car.Count; i++) {
+                string number = (i + 6).ToString();
+
+                Car car = dB_OwnersCarsDataSet.Car[i];
+                Model model = dB_OwnersCarsDataSet.Model.FirstOrDefault(x => x.Id == car.ModelId);
+                Mark mark = dB_OwnersCarsDataSet.Mark.FirstOrDefault(x => x.Id == car.MarkId);
+
+                PutCellBorder($"A{number}", car.Id.ToString());
+                PutCellBorder($"B{number}", car.Number.ToString());
+                PutCellBorder($"C{number}", car.DateRegGAI.ToString());
+                PutCellBorder($"D{number}", model.NameModel);
+                PutCellBorder($"E{number}", mark.MarkName);
+            }
+
+            _excelApplication.Visible = true;
+
+            (_excelApplication, _workSheet) = this.OpenExcelDocument($@"{_pathToExcelDirectory}\spisokCarOwner.xlsx");
+
+            PutCell("D1", DateTime.Now.ToShortDateString());
+            int numCell = 6;
+
+            foreach (Owner owner in dB_OwnersCarsDataSet.Owner) {
+                CarOwner[] carOwners = owner.GetChildRows("OwnerCarOwner") as CarOwner[];
+
+                PutCell($"A{numCell}", owner.FIO());
+
+                _range = _workSheet.get_Range($"A{numCell}", $"D{numCell}");
+                _range.Merge(Type.Missing);
+                _range.Font.Bold = true;
+                _range.Font.Italic = true;
+                _range.Interior.ColorIndex = 34;
+
+                _range.BorderAround(
+                    Excel.XlLineStyle.xlContinuous,
+                    Excel.XlBorderWeight.xlThin,
+                    Excel.XlColorIndex.xlColorIndexAutomatic,
+                    Type.Missing
+                );
+
+                _range.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                foreach (CarOwner carOwner in carOwners) {
+                    Car car = dB_OwnersCarsDataSet.Car.FirstOrDefault(x => x.Id == carOwner.CarId);
+                    Mark mark = dB_OwnersCarsDataSet.Mark.FirstOrDefault(x => x.Id == car.MarkId);
+
+                    PutCellBorder($"A{numCell + 1}", car.Id.ToString());
+                    PutCellBorder($"B{numCell + 1}", owner.FIO());
+                    PutCellBorder($"C{numCell + 1}", car?.Number);
+                    PutCellBorder($"D{numCell + 1}", mark?.MarkName);
+
+                    numCell++;
+                }
+                numCell++;
+
+                PutCell($"A{numCell}", $"Итого: {carOwners.Length}");
+
+                _range = _workSheet.get_Range($"A{numCell}", $"D{numCell}");
+                _range.Merge(Type.Missing);
+                _range.Font.Italic = true;
+                _range.Interior.ColorIndex = 40;
+
+                _range.BorderAround(
+                    Excel.XlLineStyle.xlContinuous,
+                    Excel.XlBorderWeight.xlThin,
+                    Excel.XlColorIndex.xlColorIndexAutomatic,
+                    Type.Missing
+                );
+
+                numCell++;
+            }
+
+            _excelApplication.Visible = true;
+        }
+        #endregion
 
         private void button5_Click(object sender, EventArgs e) {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog()) {
+                saveFileDialog.FileName = "index.html";
+                saveFileDialog.Filter = "html (*.html)|*.html";
+
                 if (saveFileDialog.ShowDialog() == DialogResult.OK) {
                     string path = saveFileDialog.FileName;
 
@@ -346,6 +330,7 @@ namespace Lab_1.Views {
                 padding: 5px;
                 border: 1px solid black;
             }
+
             td { 
                 padding: 5px;
                 border: 1px solid black;
@@ -364,21 +349,19 @@ namespace Lab_1.Views {
 ");
 
                         foreach (Owner owner in dB_OwnersCarsDataSet.Owner) {
-                            streamWriter.WriteLine("<tr>");
-
                             CarOwner[] carOwners = owner.GetChildRows("OwnerCarOwner") as CarOwner[];
 
                             foreach (CarOwner carOwner in carOwners) {
                                 Car car = dB_OwnersCarsDataSet.Car.FirstOrDefault(x => x.Id == carOwner.CarId);
-                                Mark mark = dB_OwnersCarsDataSet.Mark.FirstOrDefault(x => x.Id == car.MarkId);
+                                Mark mark = dB_OwnersCarsDataSet.Mark.FirstOrDefault(x => x.Id == car?.MarkId);
 
+                                streamWriter.Write("<tr>");
                                 streamWriter.WriteLine($"<td>{owner.Id}</td>");
                                 streamWriter.WriteLine($"<td>{owner.FIO()}</td>");
                                 streamWriter.WriteLine($"<td>{car?.Number}</td>");
                                 streamWriter.WriteLine($"<td>{mark?.MarkName}</td>");
-
+                                streamWriter.Write("</tr>");
                             }
-                            streamWriter.WriteLine("</tr>");
                         }
 
                         streamWriter.WriteLine(@"
@@ -390,5 +373,17 @@ namespace Lab_1.Views {
                 }
             }
         }
+
+        #endregion
+
+        private void MarkDGV_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) {
+            try {
+                DataGridViewRow row = markDGV.Rows[e.RowIndex];
+                _markId = Convert.ToInt32(row.Cells[0].Value);
+            } catch (Exception) {
+            }
+        }
+
+        private void Button1_Click(object sender, EventArgs e) => this.Close();
     }
 }

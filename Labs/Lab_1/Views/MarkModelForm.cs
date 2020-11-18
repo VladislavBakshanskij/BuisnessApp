@@ -26,7 +26,6 @@ namespace Lab_1.Views {
 
         private Excel.Application _excelApplication;
         private Excel.Worksheet _workSheet;
-        private Excel.Range _range;
 
         public MarkModelForm() {
             InitializeComponent();
@@ -268,10 +267,10 @@ namespace Lab_1.Views {
             Excel.Workbook workbook = _excelApplication.Workbooks.Open(path);
             _workSheet = workbook.Sheets[1];
             Excel.Range cells = _workSheet.UsedRange;
-            int i; // count rows
+            int rowIndex; // count rows
 
-            for (i = 3; i <= cells.Count; i++) {
-                string value = cells[i, 2].Text.ToString();
+            for (rowIndex = 3; rowIndex <= cells.Count; rowIndex++) {
+                string value = cells[rowIndex, 2].Text.ToString();
 
                 if (string.IsNullOrEmpty(value?.Trim())) {
                     continue;
@@ -285,7 +284,7 @@ namespace Lab_1.Views {
 
                 model = _models.NewModelRow();
                 model.NameModel = value;
-                model.Id = Convert.ToInt32(cells[i, 1].Text);
+                model.Id = Convert.ToInt32(cells[rowIndex, 1].Text);
                 _models.AddModelRow(model);
             }
         }

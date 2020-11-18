@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Lab_1.Views;
 
 namespace Lab_1 {
     static class Program {

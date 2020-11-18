@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -26,8 +27,10 @@ namespace Lab_1.Views {
         private readonly string _pathToExcelDirectory;
         private readonly Color _color;
 
-        private Excel.Application _excelApplication;
         private Word.Application _wordApplication;
+        private Word.Document _wordDocument;
+
+        private Excel.Application _excelApplication;
         private Excel.Worksheet _workSheet;
         private Excel.Range _range;
 
@@ -63,10 +66,10 @@ namespace Lab_1.Views {
             object visible = true;
 
             _wordApplication = new Word.Application();
-            _ = _wordApplication.Documents.Add(ref path, ref newTemplate, ref docType, ref visible);
+            _wordDocument = _wordApplication.Documents.Add(ref path, ref newTemplate, ref docType, ref visible);
         }
 
-        public void ReplaceText(string word, string repl) {
+        public void ReplaceText(string word, string replace) {
             object unit = Word.WdUnits.wdStory;
             object extend = Word.WdMovementType.wdMove;
 
@@ -76,7 +79,7 @@ namespace Lab_1.Views {
             fnd.ClearFormatting();
             fnd.Text = word;
             fnd.Replacement.ClearFormatting();
-            fnd.Replacement.Text = repl;
+            fnd.Replacement.Text = replace;
 
             ExecuteReplace(fnd);
         }
@@ -248,6 +251,144 @@ namespace Lab_1.Views {
             }
 
             _excelApplication.Visible = true;
+        }
+
+        private void button4_Click(object sender, EventArgs e) {
+            OpenDocument($@"{_pathToDocumentDirectory}\список авто.docx");
+            ReplaceText("<Today>", DateTime.Today.ToShortDateString());
+            
+            object start = 0;
+            object end = _wordDocument.Characters.Count;
+            
+            Word.Range rng = _wordDocument.Range(ref
+                start, ref end);
+            rng.TextRetrievalMode.IncludeHiddenText = false;
+            rng.TextRetrievalMode.IncludeFieldCodes = false;
+            string metka = "<Table>";
+
+            int beginphrase = rng.Text.IndexOf(metka);
+            start = beginphrase;
+
+            end = beginphrase + metka.Length;
+
+            if (beginphrase != -1) {
+                rng = _wordDocument.Range(ref start, ref end);
+                rng.Text = "";
+
+                object defaultTableBehavior = Type.Missing;
+                object autoFitBehavior = Type.Missing;
+                
+                Word.Table tbl = rng.Tables.Add(rng, 1, 4, ref defaultTableBehavior, ref autoFitBehavior);
+                object style = "Сетка таблицы";
+
+                tbl.Range.Font.Size = 14;
+                tbl.set_Style(ref style);
+                tbl.Cell(1, 1).Range.Text = "№";
+                tbl.Cell(1, 2).Range.Text = "Имя марки";
+                tbl.Cell(1, 3).Range.Text = "Номер машины";
+                tbl.Cell(1, 4).Range.Text = "Дата регистрации в ГАИ";
+
+                int i = 0;
+
+                foreach (Mark mark in dB_OwnersCarsDataSet.Mark) {
+                    Car[] cars = mark.GetChildRows(dB_OwnersCarsDataSet.Relations["MarkCar"]) as Car[];
+
+                    if (cars != null && cars.Length < 1 || cars == null) {
+                        continue;
+                    }
+
+                    string name = mark.MarkName;
+
+                    foreach (Car car in cars) {
+                        i++;
+
+                        object beforeRow = Type.Missing;
+
+                        tbl.Rows.Add(ref beforeRow);
+
+                        tbl.Cell(i + 1, 1).Range.Text = i.ToString();
+                        tbl.Cell(i + 1, 2).Range.Text = name;
+                        tbl.Cell(i + 1, 3).Range.Text = car.Number;
+                        tbl.Cell(i + 1, 4).Range.Text = car.DateRegGAI.ToString();
+                    }
+                }
+
+                tbl.Rows[1].Range.Font.Italic = 1;
+                tbl.Rows[1].Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+            } else {
+                ReplaceText("Table", "");
+            }
+            
+            _wordApplication.Visible = true;
+        }
+
+        private void button5_Click(object sender, EventArgs e) {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog()) {
+                if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+                    string path = saveFileDialog.FileName;
+
+                    using (StreamWriter streamWriter = new StreamWriter(new FileStream(path, FileMode.OpenOrCreate))) {
+                        streamWriter.WriteLine(@"
+<!doctype html>
+<html>
+    <head>
+        <title>Список владельцев и машин</title>
+        <meta charset='UTF-8'/>
+        <style>
+            table {
+                border-collapse: collapse;
+                border: 4px double black;
+            }
+
+            th {
+                text-align: left;
+                background: #8BC34A;
+                padding: 5px;
+                border: 1px solid black;
+            }
+            td { 
+                padding: 5px;
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Список владельцев и машин</h1>
+        <table>
+            <tr>
+                <th>Id владельцев</th>
+                <th>ФИО</th>
+                <th>Номер авто</th>
+                <th>Марка</th>
+            </tr>
+");
+
+                        foreach (Owner owner in dB_OwnersCarsDataSet.Owner) {
+                            streamWriter.WriteLine("<tr>");
+
+                            CarOwner[] carOwners = owner.GetChildRows("OwnerCarOwner") as CarOwner[];
+
+                            foreach (CarOwner carOwner in carOwners) {
+                                Car car = dB_OwnersCarsDataSet.Car.FirstOrDefault(x => x.Id == carOwner.CarId);
+                                Mark mark = dB_OwnersCarsDataSet.Mark.FirstOrDefault(x => x.Id == car.MarkId);
+
+                                streamWriter.WriteLine($"<td>{owner.Id}</td>");
+                                streamWriter.WriteLine($"<td>{owner.FIO()}</td>");
+                                streamWriter.WriteLine($"<td>{car?.Number}</td>");
+                                streamWriter.WriteLine($"<td>{mark?.MarkName}</td>");
+
+                            }
+                            streamWriter.WriteLine("</tr>");
+                        }
+
+                        streamWriter.WriteLine(@"
+        </table>
+    </body>
+</html>
+");
+                    }
+                }
+            }
         }
     }
 }

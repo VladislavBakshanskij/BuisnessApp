@@ -15,6 +15,10 @@ using Model = Lab_1.DB_OwnersCarsDataSet.ModelRow;
 using Mark = Lab_1.DB_OwnersCarsDataSet.MarkRow;
 using Car = Lab_1.DB_OwnersCarsDataSet.CarRow;
 
+/*
+ * TODO:
+ *  CREATE OUTPUT TO EXCEL
+ */
 namespace Lab_1.Views {
     public partial class CarForm : System.Windows.Forms.Form {
         private int _carId;

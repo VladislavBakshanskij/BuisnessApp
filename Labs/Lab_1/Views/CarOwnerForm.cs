@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,12 +68,16 @@ namespace Lab_1.Views {
             UpdateAdapters();
             this.dB_OwnersCarsDataSet.Clear();
             FillDB();
-            
-            foreach (Car car in cars) 
-                this.carComboBox.Items.Add(car.Number);
+            this.carComboBox.Items.Clear();
+            this.ownerComboBox.Items.Clear();
 
-            foreach (Owner owner in owners)
+            foreach (Car car in cars) {
+                this.carComboBox.Items.Add(car.Number);
+            }
+
+            foreach (Owner owner in owners) {
                 this.ownerComboBox.Add(owner.NumberLicense);
+            }
 
             this.carComboBox.SelectedIndex = this.ownerComboBox.SelectedIndex = 0;
             UpdateTables();

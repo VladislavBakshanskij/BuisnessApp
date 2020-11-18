@@ -55,6 +55,7 @@
     <Compile Include="Extension Methods\ComboBox.cs" />
     <Compile Include="Extension Methods\Form.cs" />
     <Compile Include="Extension Methods\Objects.cs" />
+    <Compile Include="Extension Methods\Owner.cs" />
     <Compile Include="Views\CarForm.cs">
       <SubType>Form</SubType>
     </Compile>
